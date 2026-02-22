@@ -53,11 +53,6 @@ module.exports = class AutoNavigationPlugin extends Plugin {
         const navName = `${this.settings.navigationFileName}.md`;
         let file = this.app.vault.getAbstractFileByPath(navName);
         
-        if (!file) {
-            await this.app.vault.create(navName, `#${this.settings.navigationFileName}\n`);
-            file = this.app.vault.getAbstractFileByPath(navName);
-        }
-
         const excluded = this.getExcludedFolders();
         const folders = this.app.vault.getRoot().children
             .filter(c => c instanceof TFolder && !excluded.includes(c.name))
@@ -68,9 +63,18 @@ module.exports = class AutoNavigationPlugin extends Plugin {
             md += `- [[${f.path}/${f.name}|${f.name}]]\n`;
         });
 
-        const current = await this.app.vault.read(file);
-        if (current.trim() !== md.trim()) {
-            await this.app.vault.modify(file, md);
+        if (!file) {
+            try {
+                await this.app.vault.create(navName, md);
+            } catch (e) {
+                file = this.app.vault.getAbstractFileByPath(navName);
+                if (file) await this.app.vault.modify(file, md);
+            }
+        } else {
+            const current = await this.app.vault.read(file);
+            if (current.trim() !== md.trim()) {
+                await this.app.vault.modify(file, md);
+            }
         }
     }
 
@@ -82,11 +86,6 @@ module.exports = class AutoNavigationPlugin extends Plugin {
         const navPath = `${folder.path}/${navName}`;
         let file = this.app.vault.getAbstractFileByPath(navPath);
 
-        if (!file) {
-            await this.app.vault.create(navPath, '#Navigation\n');
-            file = this.app.vault.getAbstractFileByPath(navPath);
-        }
-
         const subFolders = folder.children
             .filter(c => c instanceof TFolder && !excluded.includes(c.name))
             .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
@@ -95,7 +94,7 @@ module.exports = class AutoNavigationPlugin extends Plugin {
             .filter(c => c instanceof TFile && c.extension === 'md' && c.name !== navName)
             .sort((a, b) => a.basename.localeCompare(b.basename, undefined, { numeric: true }));
 
-        let md = '#Navigation\n\n';
+        let md = `#Navigation for ${folder.name}\n\n`;
 
         subFolders.forEach(f => {
             md += `- [[${f.path}/${f.name}|${f.name}]]\n`;
@@ -106,9 +105,18 @@ module.exports = class AutoNavigationPlugin extends Plugin {
             md += `- [[${f.basename}]]\n`;
         });
 
-        const current = await this.app.vault.read(file);
-        if (current.trim() !== md.trim()) {
-            await this.app.vault.modify(file, md);
+        if (!file) {
+            try {
+                await this.app.vault.create(navPath, md);
+            } catch (e) {
+                file = this.app.vault.getAbstractFileByPath(navPath);
+                if (file) await this.app.vault.modify(file, md);
+            }
+        } else {
+            const current = await this.app.vault.read(file);
+            if (current.trim() !== md.trim()) {
+                await this.app.vault.modify(file, md);
+            }
         }
     }
 
@@ -120,17 +128,21 @@ module.exports = class AutoNavigationPlugin extends Plugin {
         const navPath = `${folder.path}/${navName}`;
         let file = this.app.vault.getAbstractFileByPath(navPath);
 
-        if (!file) {
-            await this.app.vault.create(navPath, '#Navigation\n');
-            file = this.app.vault.getAbstractFileByPath(navPath);
-        }
-
         const lines = this.buildRecursiveContent(folder, navName, 0);
-        let newContent = '#Navigation\n\n' + lines.join('\n') + '\n';
+        let newContent = `#Navigation for ${folder.name}\n\n` + lines.join('\n') + '\n';
 
-        const current = await this.app.vault.read(file);
-        if (current.trim() !== newContent.trim()) {
-            await this.app.vault.modify(file, newContent);
+        if (!file) {
+            try {
+                await this.app.vault.create(navPath, newContent);
+            } catch (e) {
+                file = this.app.vault.getAbstractFileByPath(navPath);
+                if (file) await this.app.vault.modify(file, newContent);
+            }
+        } else {
+            const current = await this.app.vault.read(file);
+            if (current.trim() !== newContent.trim()) {
+                await this.app.vault.modify(file, newContent);
+            }
         }
     }
 
