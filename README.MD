@@ -4,7 +4,7 @@ A lightweight plugin that automatically generates and maintains navigation files
 
 ## Demo
 
-[https://github.com/blade-of-miquella/Obsidian-Custom-Navigation-Plugin/blob/33155e2a1fb6566ffe2ce7ddf20184d68e132c7f/DEMO.mp4]
+[https://github.com/user-attachments/assets/0d9098a3-5c78-4508-8b67-650000402dca]
 
 ## What it does
 
