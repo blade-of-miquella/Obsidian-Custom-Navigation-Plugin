@@ -4,7 +4,7 @@ A lightweight plugin that automatically generates and maintains navigation files
 
 ## Demo
 
-<video src="./DEMO.mp4" controls mute loop autoplay style="max-width: 100%;"></video>
+[https://github.com/blade-of-miquella/Obsidian-Custom-Navigation-Plugin/blob/33155e2a1fb6566ffe2ce7ddf20184d68e132c7f/DEMO.mp4]
 
 ## What it does
 
