@@ -94,7 +94,7 @@ module.exports = class AutoNavigationPlugin extends Plugin {
             .filter(c => c instanceof TFile && c.extension === 'md' && c.name !== navName)
             .sort((a, b) => a.basename.localeCompare(b.basename, undefined, { numeric: true }));
 
-        let md = `#Navigation for ${folder.name}\n\n`;
+        let md = `#Navigation\n\n`;
 
         subFolders.forEach(f => {
             md += `- [[${f.path}/${f.name}|${f.name}]]\n`;
@@ -129,7 +129,7 @@ module.exports = class AutoNavigationPlugin extends Plugin {
         let file = this.app.vault.getAbstractFileByPath(navPath);
 
         const lines = this.buildRecursiveContent(folder, navName, 0);
-        let newContent = `#Navigation for ${folder.name}\n\n` + lines.join('\n') + '\n';
+        let newContent = `#Navigation\n\n` + lines.join('\n') + '\n';
 
         if (!file) {
             try {
