@@ -4,7 +4,7 @@ A lightweight plugin that automatically generates and maintains navigation files
 
 ## Demo
 
-<video src="DEMO.mp4" controls mute loop autoplay style="max-width: 100%;"></video>
+<video src="./DEMO.mp4" controls mute loop autoplay style="max-width: 100%;"></video>
 
 ## What it does
 
