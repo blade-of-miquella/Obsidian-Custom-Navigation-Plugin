@@ -1,0 +1,12 @@
+{
+    "id" : "obsidian-custom-navigation",
+    "name" : "Custom Navigation",
+    "version" : "1.0.0",
+    "minAppVersion" : "1.0.0",
+    "description" : "Creation and maintenance of custom navigation through <Navigation Files>.",
+    "author" : "TheSunGoesDown",
+    "authorUrl" : "https://github.com/blade-of-miquella",
+    "helpUrl" : "",
+    "isDesktopOnly" : false
+}
+
