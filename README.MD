@@ -5,7 +5,7 @@ A lightweight plugin that automatically generates and maintains navigation files
 ## Demo
 
 <p align="center" width="100%">
-<video src="https://github.com/user-attachments/assets/0d9098a3-5c78-4508-8b67-650000402dca" width="80%" controls></video>
+<video src="https://github.com/user-attachments/assets/0d9098a3-5c78-4508-8b67-650000402dca.mp4" width="80%" controls></video>
 </p>
 
 ## What it does
